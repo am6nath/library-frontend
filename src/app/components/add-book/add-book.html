@@ -1,0 +1,205 @@
+<div class="page-container">
+
+  <div class="form-card">
+
+    <div class="header">
+
+      <h1>Register New Book</h1>
+
+      <p>Manage your library collection efficiently</p>
+
+    </div>
+
+    @if(loading){
+
+      <div class="loading">
+
+        Saving book...
+
+      </div>
+
+    }
+
+    <form
+      [formGroup]="bookForm"
+      (ngSubmit)="onSubmit()">
+
+      <div class="form-grid">
+
+        <!-- Title -->
+
+        <div class="form-group">
+
+          <label>Book Title</label>
+
+          <input
+            type="text"
+            formControlName="title"
+            placeholder="Enter book title">
+
+          @if(bookForm.get('title')?.touched &&
+              bookForm.get('title')?.invalid){
+
+            <small class="error">
+              Title is required (minimum 3 characters)
+            </small>
+
+          }
+
+        </div>
+
+        <!-- Author -->
+
+        <div class="form-group">
+
+          <label>Author</label>
+
+          <input
+            type="text"
+            formControlName="author"
+            placeholder="Enter author name">
+
+          @if(bookForm.get('author')?.touched &&
+              bookForm.get('author')?.invalid){
+
+            <small class="error">
+              Only letters and spaces allowed
+            </small>
+
+          }
+
+        </div>
+
+        <!-- Category -->
+
+        <div class="form-group">
+
+          <label>Category</label>
+
+          <select formControlName="categoryId">
+
+            <option value="">
+              Select Category
+            </option>
+
+            @for(category of categories; track category.categoryId){
+
+              <option [value]="category.categoryId">
+                {{ category.name }}
+              </option>
+
+            }
+
+          </select>
+
+          @if(bookForm.get('categoryId')?.touched &&
+              bookForm.get('categoryId')?.invalid){
+
+            <small class="error">
+              Category is required
+            </small>
+
+          }
+
+        </div>
+
+        <!-- Total Copies -->
+
+        <div class="form-group">
+
+          <label>Total Copies</label>
+
+          <input
+            type="number"
+            formControlName="totalCopies">
+
+          @if(bookForm.get('totalCopies')?.touched &&
+              bookForm.get('totalCopies')?.invalid){
+
+            <small class="error">
+              Total copies must be greater than 0
+            </small>
+
+          }
+
+        </div>
+
+      </div>
+
+      <!-- Image URL -->
+
+      <div class="form-group full-width">
+
+        <label>Book Cover URL</label>
+
+        <input
+          type="text"
+          formControlName="imageUrl"
+          placeholder="https://example.com/book-cover.jpg">
+
+        @if(bookForm.get('imageUrl')?.touched &&
+            bookForm.get('imageUrl')?.invalid){
+
+          <small class="error">
+            Please enter a valid image URL
+          </small>
+
+        }
+
+      </div>
+
+      <!-- Description -->
+
+      <div class="form-group full-width">
+
+        <label>Description</label>
+
+        <textarea
+          rows="5"
+          formControlName="description"
+          placeholder="Write a short description">
+        </textarea>
+
+        @if(bookForm.get('description')?.touched &&
+            bookForm.get('description')?.invalid){
+
+          <small class="error">
+            Description must contain at least 10 characters
+          </small>
+
+        }
+
+      </div>
+
+      <!-- Image Preview -->
+
+      @if(bookForm.get('imageUrl')?.value){
+
+        <div class="preview-section">
+
+          <h3>Book Preview</h3>
+
+          <img
+            [src]="bookForm.get('imageUrl')?.value"
+            alt="Book Preview">
+
+        </div>
+
+      }
+
+      <!-- Submit Button -->
+
+      <button
+        type="submit"
+        class="submit-btn"
+        [disabled]="bookForm.invalid || loading">
+
+        {{ loading ? 'Saving...' : 'Save Book' }}
+
+      </button>
+
+    </form>
+
+  </div>
+
+</div>

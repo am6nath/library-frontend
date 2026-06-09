@@ -1,0 +1,22 @@
+<mat-toolbar class="navbar">
+
+  <div class="brand">
+        LIBRARY PRO
+  </div>
+
+  <span class="spacer"></span>
+
+  <div class="nav-links">
+    <a mat-button routerLink="/home">HOME</a>
+    <a mat-button routerLink="/add-book">ADD BOOK</a>
+
+    <button
+      mat-raised-button
+      color="warn"
+      class="logout-btn"
+      (click)="logout()">
+      LOGOUT
+    </button>
+  </div>
+
+</mat-toolbar>

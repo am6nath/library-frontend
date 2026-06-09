@@ -1,0 +1,56 @@
+<div class="login-container">
+  <mat-card class="login-card">
+    <div class="logo-section">
+      <h1>LIBRARY PRO</h1>
+      <p>Library Management System</p>
+    </div>
+
+    <h2 class="login-title">Admin Login</h2>
+
+    <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>Email Address</mat-label>
+        <input matInput type="email" formControlName="email" />
+
+        @if (loginForm.get('email')?.invalid && loginForm.get('email')?.touched) {
+          <mat-error> Please enter a valid email address </mat-error>
+        }
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>Password</mat-label>
+
+        <input matInput [type]="hidePassword ? 'password' : 'text'" formControlName="password" />
+
+        <button mat-icon-button matSuffix type="button" (click)="hidePassword = !hidePassword">
+          <mat-icon>
+            {{ hidePassword ? 'visibility_off' : 'visibility' }}
+          </mat-icon>
+        </button>
+
+        @if (loginForm.get('password')?.invalid && loginForm.get('password')?.touched) {
+          <mat-error> Password is required </mat-error>
+        }
+      </mat-form-field>
+
+      <button
+        mat-raised-button
+        color="primary"
+        class="full-width login-btn"
+        type="submit"
+        [disabled]="loginForm.invalid"
+      >
+        Login
+      </button>
+    </form>
+
+    <div class="divider">
+      <span>OR</span>
+    </div>
+
+    <div class="register-link">
+      <span>Don't have an account?</span>
+      <a routerLink="/register"> Register</a>
+    </div>
+  </mat-card>
+</div>

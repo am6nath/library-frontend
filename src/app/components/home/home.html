@@ -1,0 +1,144 @@
+<!-- v1 -->
+<div class="page-container">
+
+  <h1 class="page-title">
+    Knowledge on the Shelves
+  </h1>
+
+  <div class="search-container">
+
+    <div class="search-wrapper">
+
+      <input
+        type="text"
+        [ngModel]="searchTerm"
+        (ngModelChange)="onSearch($event)"
+        placeholder="Search books..."
+        class="search-input">
+
+      <button class="search-btn">
+
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="24"
+          height="24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          viewBox="0 0 24 24">
+
+          <circle cx="11" cy="11" r="8"></circle>
+          <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+
+        </svg>
+
+      </button>
+
+    </div>
+
+  </div>
+
+  @if(loading){
+
+    <div class="loading">
+
+      Loading books...
+
+    </div>
+
+  }
+
+  <div class="table-wrapper">
+
+    <table>
+
+      <thead>
+
+        <tr>
+          <th>ID</th>
+          <th>Cover</th>
+          <th>Title</th>
+          <th>Author</th>
+          <th>Category</th>
+          <th>Available</th>
+          <th>Actions</th>
+        </tr>
+
+      </thead>
+
+      <tbody>
+
+        @for(book of books; track book.bookId){
+
+          <tr>
+
+            <td>{{ book.bookId }}</td>
+
+            <td>
+
+              <img
+                [src]="book.imageUrl || 'https://placehold.co/80x100'"
+                [alt]="book.title"
+                class="book-image">
+
+            </td>
+
+            <td>{{ book.title }}</td>
+
+            <td>{{ book.author }}</td>
+
+            <td>{{ book.categoryName }}</td>
+
+            <td>
+
+              {{ book.availableCopies }}
+              /
+              {{ book.totalCopies }}
+
+            </td>
+
+            <td>
+
+              <div class="action-buttons">
+
+                <button
+                  class="edit-btn"
+                  (click)="editBook(book.bookId)">
+                  Edit
+                </button>
+
+                <button
+                  class="delete-btn"
+                  (click)="deleteBook(book.bookId)">
+                  Delete
+                </button>
+
+              </div>
+
+            </td>
+
+          </tr>
+
+        }
+
+        @if(!loading && books.length === 0){
+
+          <tr>
+
+            <td colspan="7" class="no-data">
+
+              No books found
+
+            </td>
+
+          </tr>
+
+        }
+
+      </tbody>
+
+    </table>
+
+  </div>
+
+</div>
