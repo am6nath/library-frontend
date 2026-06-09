@@ -3,8 +3,7 @@ WORKDIR /app
 COPY package.json ./
 RUN npm install
 COPY . ./
-RUN npm run build -- --optimization=false
-
+RUN npm run build -- --configuration=development
 FROM nginx:alpine AS serve
 
 COPY nginx.conf /etc/nginx/conf.d/default.conf
